@@ -1,0 +1,21 @@
+{
+    "assignmentID": 1433,
+    "problems": {
+        "cs2810-arm64-am-or-fm": {
+            "id": 94,
+            "step": 1,
+            "whitelist": {
+                "am_or_fm.s": true,
+                "start.s": true
+            }
+        },
+        "cs2810-arm64-password-strength": {
+            "id": 95,
+            "step": 1,
+            "whitelist": {
+                "start.s": true,
+                "strength.s": true
+            }
+        }
+    }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://check.sourceforge.net/xml/check_unittest.xslt"?>
+<testsuites xmlns="http://check.sourceforge.net/ns">
+  <datetime>2019-02-24 21:56:46</datetime>
+  <suite>
+    <title>alltests</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:14</fn>
+      <id>empty</id>
+      <iteration>0</iteration>
+      <duration>0.000094</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:27</fn>
+      <id>lower</id>
+      <iteration>0</iteration>
+      <duration>0.000197</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:40</fn>
+      <id>upper</id>
+      <iteration>0</iteration>
+      <duration>0.000261</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:56</fn>
+      <id>lower_upper</id>
+      <iteration>0</iteration>
+      <duration>0.000293</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:66</fn>
+      <id>lower_upper_digit</id>
+      <iteration>0</iteration>
+      <duration>0.000080</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:82</fn>
+      <id>lower_upper_digit_symbol</id>
+      <iteration>0</iteration>
+      <duration>0.000168</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:95</fn>
+      <id>lower_long</id>
+      <iteration>0</iteration>
+      <duration>0.000119</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>strength-test.check:108</fn>
+      <id>everything</id>
+      <iteration>0</iteration>
+      <duration>0.000119</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <duration>0.076001</duration>
+</testsuites>

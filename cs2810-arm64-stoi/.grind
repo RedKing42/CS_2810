@@ -1,0 +1,13 @@
+{
+    "assignmentID": 1645,
+    "problems": {
+        "cs2810-arm64-stoi": {
+            "id": 105,
+            "step": 1,
+            "whitelist": {
+                "start.s": true,
+                "stoi.s": true
+            }
+        }
+    }
+}

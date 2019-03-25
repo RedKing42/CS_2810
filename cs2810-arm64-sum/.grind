@@ -1,0 +1,13 @@
+{
+    "assignmentID": 1379,
+    "problems": {
+        "cs2810-arm64-sum": {
+            "id": 92,
+            "step": 1,
+            "whitelist": {
+                "start.s": true,
+                "sum.s": true
+            }
+        }
+    }
+}

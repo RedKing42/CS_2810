@@ -1,0 +1,112 @@
+#include <inttypes.h>
+
+extern int64_t strength(char *);
+extern int64_t callfunction(char *);
+extern int64_t (*target_function)(char *);
+extern int64_t unsaved_register_number;
+
+#suite alltests
+#tcase simple
+
+#test empty
+    // check with the empty string
+    ck_assert_int_eq(callfunction(""), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test lower
+    ck_assert_int_eq(callfunction("abc"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("password"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("foo"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("dontguessme"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test upper
+    ck_assert_int_eq(callfunction("ABC"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("PASSWORD"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("FOO"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("DONTGUESSME"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test lower_upper
+    ck_assert_int_eq(callfunction("abC"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("aBc"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("passWORD"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("Foo"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("DontGuessMe"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test lower_upper_digit
+    ck_assert_int_eq(callfunction("Password123"), 3);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("23LetMeIn"), 3);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("l33tWORD"), 3);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test lower_upper_digit_symbol
+    ck_assert_int_eq(callfunction("abcDEF123@^"), 4);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("aB1%C2 d#!@"), 4);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("2Strong4U!"), 4);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("InC0R3c+LOL"), 4);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction(" )(yeaH99"), 4);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test lower_long
+    ck_assert_int_eq(callfunction("abcdefghijklmnopqrstuvwxyz"), 3);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("qwertyuiopasdf"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("crymeariverhacker"), 3);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("donottrackme"), 2);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test everything
+    ck_assert_int_eq(callfunction("T@8YfckztiB^&UqS3DyP"), 6);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("j1B3gki$sJKfv6$vMCZj"), 6);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("dC2@9A4syT8Zt@Zz"), 6);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("1xm%Uv 7#eOt^o1J"), 6);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#main-pre
+    srunner_set_xml(sr, "test_results.xml");
+    target_function = strength;

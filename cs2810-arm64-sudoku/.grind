@@ -1,0 +1,19 @@
+{
+    "assignmentID": 1600,
+    "problems": {
+        "cs2810-arm64-sudoku": {
+            "id": 103,
+            "step": 5,
+            "whitelist": {
+                "get_within_column.s": true,
+                "get_within_group.s": true,
+                "get_within_row.s": true,
+                "has_conflict.s": true,
+                "has_conflict_within.s": true,
+                "read_board.s": true,
+                "solve.s": true,
+                "start.s": true
+            }
+        }
+    }
+}

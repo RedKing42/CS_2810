@@ -1,0 +1,93 @@
+#include <inttypes.h>
+
+extern int64_t stoi(const char *);
+extern int64_t callfunction(const char *);
+extern int64_t (*target_function)(const char *);
+extern int64_t unsaved_register_number;
+
+#suite alltests
+#tcase simple
+
+#test zerotests
+    ck_assert_int_eq(callfunction("0"), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction(""), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("notanumber"), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction(" 123"), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test onedigittests
+    ck_assert_int_eq(callfunction("1"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("9"), 9);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("5"), 5);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test twodigittests
+    ck_assert_int_eq(callfunction("34"), 34);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("90"), 90);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("55"), 55);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("01"), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("23junk"), 23);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("00 123"), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test multidigittests
+    ck_assert_int_eq(callfunction("100"), 100);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("999"), 999);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("123456"), 123456);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("987654321"), 987654321);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("987654321-0"), 987654321);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#test negativetests
+    ck_assert_int_eq(callfunction("-100"), -100);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("-"), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("-999"), -999);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("-123456"), -123456);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("-987654321"), -987654321);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("-987654321-0"), -987654321);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction("--987654321-0"), 0);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#main-pre
+    srunner_set_xml(sr, "test_results.xml");
+    target_function = stoi;

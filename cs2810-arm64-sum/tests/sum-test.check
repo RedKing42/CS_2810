@@ -1,0 +1,27 @@
+#include <inttypes.h>
+
+extern int64_t sum(int64_t, int64_t);
+extern int64_t callfunction(int64_t, int64_t);
+extern int64_t (*target_function)(int64_t, int64_t);
+extern int64_t unsaved_register_number;
+
+#suite alltests
+#tcase simple
+
+#test sum2test
+    target_function = sum;
+
+    ck_assert_int_eq(callfunction(3, 2), 5);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction(-3, 2), -1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction(3, -2), 1);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+    ck_assert_int_eq(callfunction(-3, -2), -5);
+    ck_assert_int_eq(unsaved_register_number, 0);
+
+#main-pre
+    srunner_set_xml(sr, "test_results.xml");

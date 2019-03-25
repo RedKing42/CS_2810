@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://check.sourceforge.net/xml/check_unittest.xslt"?>
+<testsuites xmlns="http://check.sourceforge.net/ns">
+  <datetime>2019-02-13 11:42:27</datetime>
+  <suite>
+    <title>alltests</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>sum-test.check:24</fn>
+      <id>sum2test</id>
+      <iteration>0</iteration>
+      <duration>0.000179</duration>
+      <description>simple</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <duration>0.011564</duration>
+</testsuites>
