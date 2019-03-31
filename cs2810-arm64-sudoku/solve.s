@@ -17,16 +17,15 @@ solve:
 		//x21 = i
 		//x22 = n
 		mov x20, x0
-		mov x21, xzr
+		mov x21, #0
+		//initialized i
 
 
 //def solve(board):
 	//if has_conflict(board) != 0:
 .initial_check:
-		//x1 = address of has_conflict
-		ldr x1, =has_conflict
 		mov x0, x20
-		blr x1
+		bl has_conflict
 
 		cmp x0, xzr
 		b.ne .return_bad
@@ -40,18 +39,18 @@ solve:
 .increment_i:
 		add x21, x21, #1
 .first_for_loop:
-		//x1 = scratch for comparing
-		mov x1, #81
-		cmp x21, x1
+
+		cmp x21, #81
 		b.ge .return_good
+		mov x22, #1
+		//initalized n
 
 		//x2 = board[i]
 		ldrb w2, [x20, x21]
 		cmp x2, xzr
-		mov x22, #1
 		b.eq .second_for_loop
-		//what is continue?
-
+		b .increment_i
+		//continue by incrementing i
 		
 
 
@@ -63,33 +62,34 @@ solve:
 .increment_n:
 		add x22, x22, #1
 .second_for_loop:
+		cmp x22, #10
+		b.ge .reset_board
 		//storing the value n at board[i]
 		strb w22, [x20, x21]
-		//x1 = scratch address of solve
-		ldr x1, =solve
 		mov x0, x20
 		//recurse
-		blr x1
+		bl solve
 		cmp x0, xzr
 		b.ne .increment_n
-		b .return_good
-
-
-
-		//board[i] = 0
-		//return 1
-	//return 0
-
-
 
 .return_good:
 		mov x0, #0
 		b .leave
+		
+		
+		//board[i] = 0
+		//return 1
+	//return 0
+.reset_board:
+		strb wzr, [x20, x21]
+		b .return_bad
+
+
+
 
 
 .return_bad:
 		mov x1, #1
-		b .leave
 
 
 .leave:

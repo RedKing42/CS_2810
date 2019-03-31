@@ -1,0 +1,13 @@
+{
+    "assignmentID": 1735,
+    "problems": {
+        "cs2810-arm64-sort": {
+            "id": 109,
+            "step": 1,
+            "whitelist": {
+                "sort_ints.s": true,
+                "start.s": true
+            }
+        }
+    }
+}

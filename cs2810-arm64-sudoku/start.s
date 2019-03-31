@@ -4,7 +4,7 @@
 
                 // here is a valid, fully solved board
                 .data
-board:          .byte   8,1,9, 7,6,3, 4,2,5
+board:          .byte   0,0,0, 7,6,3, 4,2,5
                 .byte   4,7,5, 9,2,8, 6,1,3
                 .byte   3,2,6, 5,4,1, 9,7,8
 

@@ -1,0 +1,65 @@
+<html><head></head><body><h1>Sort</h1>
+
+<p>Implement a function that sorts an array of integers in ascending
+order:</p>
+
+<pre><code>sort_ints(array, size)
+</code></pre>
+
+<p>The function takes two parameters and returns nothing. The first
+parameter is the address in memory of an array of integers, each
+64-bits in size. The second parameter indicates how many integers
+are in the array. When the function returns, the array should be
+sorted from smallest to largest element.</p>
+
+<p>An <em>array</em> is just a list of numbers in memory, one after another.
+Each entry uses 8 bytes, so an array of 5 numbers will be 40 bytes
+long. The <code>array</code> parameters to <code>sort_ints</code> is the address of the
+first element of the array.</p>
+
+<p>You may use any reasonable sorting algorithm. One of the simplest to
+understand (and probably to debug) is the <em>selection sort</em>. If in
+doubt, I suggest using it, but you are welcome to use a different
+algorithm:</p>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Selection_sort">https://en.wikipedia.org/wiki/Selection_sort</a></li>
+</ul>
+
+<p>You should do the following:</p>
+
+<ol>
+<li>Pick a sorting algorithm</li>
+<li>Write detailed pseudo-code for exactly how you plan to implement it</li>
+<li>Implement your pseudo-code in some high-level language to test
+that your algorithm is correct</li>
+<li>Transform your pseudo-code as on previous assignments to
+eliminate loops, complex conditionals, and anything else that
+does not translate directly into assembly language</li>
+<li>Plan how you will use registers, the stack, memory, etc.</li>
+<li>Implement the assembly language and test it</li>
+</ol>
+
+<p>When loading values from memory, note that you will need to load
+8-byte (64-bit) values. When you index an array by item number, you
+need to multiply the index value by 8 to get the correct byte offset
+to add to the beginning of the array. For example, to load the
+value at index 13 of an array that begins at memory location 2000,
+you would compute the correct address of the item using:</p>
+
+<pre><code>address = 2000 + 13 * 8
+</code></pre>
+
+<p>This is a common operation, and the CPU has built-in support for it
+in the form of index shifting. It works like this:</p>
+
+<pre><code>ldr x3, [x6, x8, lsl #3]
+</code></pre>
+
+<p>This instruction loads a 64-bit value into x3. The address it loads
+from is x6 (the array) plus x8 (the index) shifted left 3 times,
+i.e.: x6 + x8 * 8. The logical shift left (lsl) only applies to the
+index (the second register inside the square brackets).</p>
+
+<p>It works the same way for str.</p>
+</body></html>

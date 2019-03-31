@@ -1,0 +1,58 @@
+#include <inttypes.h>
+
+extern void sort_ints(int64_t *, int64_t);
+extern void callfunction(int64_t *, int64_t);
+extern void (*target_function)(int64_t *, int64_t);
+extern int64_t unsaved_register_number;
+
+#suite alltests
+#tcase simple
+
+#test sorttest
+    int64_t output1[] = { 0, 1, 2, 3, 4, 5 };
+    int64_t input1[] =  { 5, 3, 1, 0, 2, 4 };
+    callfunction(input1, 6);
+    ck_assert_int_eq(unsaved_register_number, 0);
+    ck_assert_int_eq(memcmp(input1, output1, sizeof(output1)), 0);
+
+    int64_t input2[] = {
+        61, 38, 68, 72, 90, 2, 87, 30, 80, 98,
+        23, 63, 35, 55, 97, 86, 23, 67, 79, 66
+    };
+    int64_t output2[] = {
+        2, 23, 23, 30, 35, 38, 55, 61, 63, 66,
+        67, 68, 72, 79, 80, 86, 87, 90, 97, 98
+    };
+    callfunction(input2, 20);
+    ck_assert_int_eq(unsaved_register_number, 0);
+    ck_assert_int_eq(memcmp(input2, output2, sizeof(output2)), 0);
+
+    int64_t output3[] = {
+        -74, -72, -62, -56, -39, -30, -29, -16, -14, 6,
+        8, 14, 26, 28, 30, 35, 43, 78, 82, 87
+    };
+    int64_t input3[] = {
+        -39, -72, 87, 8, 6, -62, 26, -16, 82, -29,
+        43, 35, -14, 14, -30, 28, 30, -56, -74, 78
+    };
+    callfunction(input3, 20);
+    ck_assert_int_eq(unsaved_register_number, 0);
+    ck_assert_int_eq(memcmp(input3, output3, sizeof(output3)), 0);
+
+    int64_t input4[] = {
+        -35, -81, -79, -75, -52, -76, -3, -73, -86, -30,
+        -8, -47, -5, -26, -91, -25, -9, -49, -23, -89,
+        -43, -90, -87, -90, -45, -46, -73, -62, -18, -92
+    };
+    int64_t output4[] = {
+        -92, -91, -90, -90, -89, -87, -86, -81, -79, -76,
+        -75, -73, -73, -62, -52, -49, -47, -46, -45, -43,
+        -35, -30, -26, -25, -23, -18, -9, -8, -5, -3
+    };
+    callfunction(input4, 30);
+    ck_assert_int_eq(unsaved_register_number, 0);
+    ck_assert_int_eq(memcmp(input4, output4, sizeof(output4)), 0);
+
+#main-pre
+    srunner_set_xml(sr, "test_results.xml");
+    target_function = sort_ints;
